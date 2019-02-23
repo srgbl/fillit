@@ -85,15 +85,19 @@ t_list	*ft_list_push_back(t_list **begin_list)
 	t_list	*temp;
 
 	temp = *begin_list;
-	if (temp == NULL)
+	if (!temp)
 	{
 		*begin_list = ft_create_elem();
 		new_last = *begin_list;
 	}
 	else
 	{
-		while (temp->next != NULL)
+		while (temp)
+		{
+			if(temp->next == NULL)
+				break;
 			temp = temp->next;
+		}
 		new_last = ft_create_elem();
 		temp->next = new_last;
 	}
@@ -109,6 +113,7 @@ int	str_to_bytes(char *str, t_list **list)
 
 	i = 0;
 	size = 0;
+	*list = NULL;
 	while(str[i])
 	{
 		k = 0;
@@ -138,13 +143,14 @@ int	ft_sqrt(int n)
 	return (i);
 }
 
-void print_map(t_list **list, int size)
+void print_map(t_list **list, t_list *curr, int size)
 {
 	t_list	*temp;
-	char	str[17][17] = {0};
+	char	str[17][17] = {{0}};
 	int		i;
 	int 	k;
 
+	printf("\n");
 	i = 0;
 	while (i < size)
 	{
@@ -165,6 +171,8 @@ void print_map(t_list **list, int size)
 			i++;
 		}
 		k++;
+		if (temp == curr)
+			break;
 		temp = temp->next;
 	}
 	i = 0;
@@ -192,9 +200,10 @@ int	t_map(t_list **begin_list, int size)
 	{
 		next = 0;
 		y = list->y;
+		x = list->x;
+		//printf("x = %d, y = %d\n", list->x, list->y);
 		while (y + list->height <= n)
 		{
-			x = list->x;
 			while (x + list->width <= n)
 			{
 				if (next)
@@ -212,7 +221,7 @@ int	t_map(t_list **begin_list, int size)
 						map[y + i] |= (list->tetr << (i * 4) & 61440) >> x;
 						i++;
 					}
-					print_map(begin_list, 16);
+					//print_map(begin_list, list, n);
 					next = 1;
 					break ;
 				}
@@ -222,58 +231,61 @@ int	t_map(t_list **begin_list, int size)
 			if (next)
 					break ;
 			y++;
+			x = 0;
 		}
 		if (!next)
 		{
-			list->x = 0;
-			list->y = 0;
 			temp = *begin_list;
-			while (temp->next != list)
-				temp = temp->next;
-			list = temp;
-			i = 0;
-			while (i < 4)
+			if (list != *begin_list)
 			{
-				map[list->y + i] ^= list->tetr << (i * 4) & 61440 >> list->x;
-				i++;
-			}
-			list->x += 1;
-			if (list->x + list->width > n)
-			{
+				while (temp->next != list)
+					temp = temp->next;
 				list->x = 0;
-				list->y += 1;
-				if (list->y + list->height > n)
+				list->y = 0;
+				list = temp;
+				i = 0;
+				while (i < 4)
 				{
-					ft_clean_list(begin_list);
-					ft_clean_arr(map, 16);
-					list = *begin_list;
-					n++;
+					map[list->y + i] ^= ((list->tetr << (i * 4)) & 61440) >> list->x;
+					i++;
 				}
+				//print_map(begin_list, list, n);
+				//printf("x = %d, y = %d\n", list->x, list->y);
+				list->x += 1;
 			}
+			else
+			{
+				ft_clean_list(begin_list);
+				ft_clean_arr(map, 16);
+				list = *begin_list;
+				printf("n = %d\n", n);
+				n++;
+			}
+
 		}
 		else
-		{
 			list = list->next;
-			printf("\nn = %d\n", n);
-		//	print_map(begin_list, 16);
-		}
 	}
 	return (n);
 }
 
 int main(void)
 {
-	char str[101];
-	int fd;
+	char 	str[211];
+	int 	fd;
 	t_list	*list;
-	int size;
+	int 	size;
+	int 	n;
 
 	fd = open("test", O_RDONLY);
-	read(fd, &str, 100);
-
+	printf("fd = %d\n", fd);
+	printf("read = %lu\n", read(fd, &str, 210));
+	str[210] = '\0';
 	size = str_to_bytes(str, &list);
+	printf("size = %d\n", size);
 	bytes_to_left(&list);
-	printf("\nres = %d\n", t_map(&list, size));
-	print_map(&list, 16);
+	n = t_map(&list, size);
+	printf("\nres = %d\n", n);
+	print_map(&list, NULL, n);
 	return (0);
 }
