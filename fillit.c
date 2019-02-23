@@ -258,7 +258,7 @@ int	t_map(t_list **begin_list, int size)
 				ft_clean_list(begin_list);
 				ft_clean_arr(map, 16);
 				list = *begin_list;
-				printf("n = %d\n", n);
+				//printf("n = %d\n", n);
 				n++;
 			}
 
@@ -271,7 +271,7 @@ int	t_map(t_list **begin_list, int size)
 
 int main(void)
 {
-	char 	str[211];
+	char 	str[547];
 	int 	fd;
 	t_list	*list;
 	int 	size;
@@ -279,11 +279,12 @@ int main(void)
 
 	fd = open("test", O_RDONLY);
 	printf("fd = %d\n", fd);
-	printf("read = %lu\n", read(fd, &str, 210));
-	str[210] = '\0';
+	printf("read = %lu\n", read(fd, &str, 546));
+	str[546] = '\0';
 	size = str_to_bytes(str, &list);
 	printf("size = %d\n", size);
 	bytes_to_left(&list);
+	printf("ok\n");
 	n = t_map(&list, size);
 	printf("\nres = %d\n", n);
 	print_map(&list, NULL, n);
