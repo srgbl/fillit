@@ -6,7 +6,7 @@
 /*   By: slindgre <slindgre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 20:05:14 by slindgre          #+#    #+#             */
-/*   Updated: 2019/02/23 20:28:58 by slindgre         ###   ########.fr       */
+/*   Updated: 2019/02/24 00:22:13 by slindgre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int	check_position(tetr_list *list, uint16_t *map, int n, short x)
 }
 
 void	clear_position(tetr_list **begin_list,
-		tetr_list **list, uint16_t *map, int *n)
+		tetr_list **list, uint16_t *map, int n)
 {
 	tetr_list	*temp;
 	int			i;
@@ -264,17 +264,19 @@ int	solve_map(tetr_list **begin_list, int size)
 	return (n);
 }
 
+
 int main(void)
 {
 	tetr_list	*list;
-	char 		str[232];
+	char 		str[199];
 	int 		fd;
 	int 		size;
 
 	fd = open("test", O_RDONLY);
-	read(fd, &str, 231);
-	str[231] = '\0';
+	read(fd, &str, 198);
+	str[198] = '\0';
 	size = str_to_bytes(str, &list);
 	print_map(&list, solve_map(&list, size));
 	return (0);
 }
+
