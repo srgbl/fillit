@@ -6,7 +6,7 @@
 /*   By: slindgre <slindgre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:38:29 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 03:46:09 by slindgre         ###   ########.fr       */
+/*   Updated: 2019/02/27 04:00:07 by slindgre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct		m_list
 {
 	struct m_list	*next;
 	uint16_t		tetr;
-	short			z;
-	int				w;
 	short			width;
 	short			height;
 	short			x;
