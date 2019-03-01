@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 18:54:35 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 15:04:40 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+char				*ft_strchr(const char *s, int c)
 {
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	while (*s && *s != (char)c)
+		s++;
+	if (*s == (char)c)
+		return ((char *)s);
+	return (NULL);
 }

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/05 19:25:42 by hstiv             #+#    #+#             */
+/*   Updated: 2018/12/19 18:52:28 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-
-void		ft_freeder(char **s)
+void				ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	if (s && f)
+		while (s[i])
+		{
+			f(i, &s[i]);
+			i++;
+		}
 }

@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 19:29:48 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 14:53:22 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <string.h>
 
-void		ft_freeder(char **s)
+int					ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	while (*s1)
+		if (!(*s1++ - *s2++ == 0))
+			return ((unsigned char)*(s1 - 1) - (unsigned char)*(s2 - 1));
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

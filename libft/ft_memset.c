@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 16:11:34 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 13:36:05 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <string.h>
 
-void		ft_freeder(char **s)
+void				*ft_memset(void *b, int c, size_t len)
 {
-	int		i;
+	size_t			i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	if (len == 0)
+		return (b);
+	while (i < len)
+		*((unsigned char *)b + i++) = c;
+	return (b);
 }

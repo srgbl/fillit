@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/05 19:39:24 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/06 13:43:51 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+int					ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	int		i;
+	size_t			i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (!n)
+		return (1);
+	if (!s1 || !s2)
+		return (0);
+	i = -1;
+	if (*s1 != *s2)
+		return (0);
+	while (*s1 == *s2 && ++i < n && (*s1 != '\0' && *s2 != '\0'))
 	{
-		free(s[i]);
-		i--;
+		s1++;
+		s2++;
+		if (*s1 != *s2 && (i + 1) < n)
+			return (0);
 	}
-	free(s);
+	return (1);
 }

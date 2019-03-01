@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/05 19:11:30 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/12 18:20:51 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <stdlib.h>
+#include "libft.h"
 
-void		ft_freeder(char **s)
+char				*ft_strmap(char const *s, char (*f)(char))
 {
-	int		i;
+	char			*str;
+	int				i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (!f || !s)
+		return (NULL);
+	if (!(str = ft_strnew(ft_strlen((char *)s))))
+		return (NULL);
+	while (s[i] != '\0')
 	{
-		free(s[i]);
-		i--;
+		str[i] = (*f)(s[i]);
+		i++;
 	}
-	free(s);
+	return (str);
 }

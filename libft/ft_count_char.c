@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_count_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/15 17:08:12 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/07 20:31:44 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+size_t				ft_count_char(char const *s, char c)
 {
-	int		i;
+	size_t			i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	while (*s != '\0')
 	{
-		free(s[i]);
-		i--;
+		if (*s != c && *s != '\0')
+		{
+			i++;
+			while (*s != c && *s != '\0')
+				s++;
+		}
+		else
+			s++;
 	}
-	free(s);
+	return (i);
 }

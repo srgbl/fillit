@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 17:04:11 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 13:54:30 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+char				*ft_strdup(const char *s1)
 {
-	int		i;
+	char			*str;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	if (!(str = (char *)malloc(sizeof(*str) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	ft_strcpy(str, s1);
+	return (str);
 }

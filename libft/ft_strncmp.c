@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/08 13:34:02 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 14:55:19 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+int					ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	if (!n)
+		return (0);
+	while (n && *s1++ == *s2++ && *(s1 - 1))
+		n--;
+	return (*(unsigned char*)(s1 - 1) - *(unsigned char*)(s2 - 1));
 }

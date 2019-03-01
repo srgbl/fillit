@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 16:22:39 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 15:09:34 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <string.h>
 
-void		ft_freeder(char **s)
+void			*ft_memccpy(void *dest, const void *source, int c, size_t n)
 {
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (!(dest || source))
+		return (NULL);
+	while (n--)
 	{
-		free(s[i]);
-		i--;
+		*(unsigned char*)dest = *(unsigned char*)source;
+		if (*(unsigned char*)dest == (unsigned char)c)
+			return (dest + 1);
+		dest++;
+		source++;
 	}
-	free(s);
+	return (NULL);
 }

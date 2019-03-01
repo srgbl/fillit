@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 16:31:45 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 13:48:37 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <string.h>
 
-void		ft_freeder(char **s)
+void				*ft_memmove(void *dest, const void *source, size_t len)
 {
-	int		i;
+	size_t			i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (source == dest)
+		return (dest);
+	if (source < dest)
 	{
-		free(s[i]);
-		i--;
+		i = len;
+		while (i-- > 0)
+			*(unsigned char *)(dest + i) = *(unsigned char *)(source + i);
 	}
-	free(s);
+	else
+	{
+		i = 0;
+		while (i < len)
+		{
+			*(unsigned char *)(dest + i) = *(unsigned char *)(source + i);
+			i++;
+		}
+	}
+	return (dest);
 }

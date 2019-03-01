@@ -6,17 +6,17 @@
 /*   By: slindgre <slindgre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 01:37:38 by slindgre          #+#    #+#             */
-/*   Updated: 2019/02/27 01:37:38 by slindgre         ###   ########.fr       */
+/*   Updated: 2019/02/27 20:37:03 by slindgre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void		free_list(tetr_list *list)
+void		free_list(t_tetr *list)
 {
-	tetr_list	*temp;
+	t_tetr	*temp;
 
-	while(list)
+	while (list)
 	{
 		temp = list;
 		list = list->next;
@@ -24,11 +24,11 @@ void		free_list(tetr_list *list)
 	}
 }
 
-tetr_list	*ft_create_elem(void)
+t_tetr		*ft_create_elem(void)
 {
-	tetr_list	*new_elem;
+	t_tetr	*new_elem;
 
-	new_elem = malloc(sizeof(tetr_list));
+	new_elem = malloc(sizeof(t_tetr));
 	if (new_elem)
 	{
 		new_elem->tetr = 0;
@@ -41,10 +41,10 @@ tetr_list	*ft_create_elem(void)
 	return (new_elem);
 }
 
-tetr_list	*ft_list_push_back(tetr_list **begin_list)
+t_tetr		*ft_list_push_back(t_tetr **begin_list)
 {
-	tetr_list	*new_last;
-	tetr_list	*temp;
+	t_tetr	*new_last;
+	t_tetr	*temp;
 
 	temp = *begin_list;
 	if (!temp)
@@ -57,7 +57,7 @@ tetr_list	*ft_list_push_back(tetr_list **begin_list)
 		while (temp)
 		{
 			if (temp->next == NULL)
-				break;
+				break ;
 			temp = temp->next;
 		}
 		new_last = ft_create_elem();
@@ -66,9 +66,9 @@ tetr_list	*ft_list_push_back(tetr_list **begin_list)
 	return (new_last);
 }
 
-void	ft_clean_list(tetr_list **begin_list)
+void		ft_clean_list(t_tetr **begin_list)
 {
-	tetr_list	*temp;
+	t_tetr	*temp;
 
 	temp = *begin_list;
 	while (temp)
@@ -79,9 +79,9 @@ void	ft_clean_list(tetr_list **begin_list)
 	}
 }
 
-void	ft_clean_arr(uint16_t *arr, int size)
+void		ft_clean_arr(uint16_t *arr, int size)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < size)

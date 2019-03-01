@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/05 19:43:34 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/07 20:15:06 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <stdlib.h>
+#include <string.h>
+#include "libft.h"
 
-void		ft_freeder(char **s)
+char				*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	int		i;
+	char			*str;
+	size_t			i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (!s)
+		return (NULL);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	while (s[start] != '\0' && len)
 	{
-		free(s[i]);
-		i--;
+		str[i] = s[start];
+		start++;
+		i++;
+		len--;
 	}
-	free(s);
+	str[i] = '\0';
+	return (str);
 }

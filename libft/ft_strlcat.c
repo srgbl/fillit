@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 18:08:32 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 15:07:30 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+size_t				ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int		i;
+	size_t			i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
-	{
-		free(s[i]);
-		i--;
-	}
-	free(s);
+	i = ft_strlen(dst) + 1;
+	if (size == 0)
+		return (ft_strlen(src));
+	else if (size < i)
+		return (size + ft_strlen(src));
+	if (i < size)
+		ft_strncat(dst, src, size - i);
+	return ((i - 1) + ft_strlen(src));
 }

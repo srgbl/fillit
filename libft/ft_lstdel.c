@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2019/01/11 15:09:31 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 16:03:32 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	int		i;
+	t_list		*nxt;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	if (alst && *alst && del)
 	{
-		free(s[i]);
-		i--;
+		while (*alst)
+		{
+			nxt = (*alst)->next;
+			ft_lstdelone(alst, del);
+			*alst = nxt;
+		}
 	}
-	free(s);
+	*alst = NULL;
 }

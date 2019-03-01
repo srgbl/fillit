@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2019/01/11 16:16:58 by hstiv             #+#    #+#             */
+/*   Updated: 2019/01/13 16:03:29 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void		ft_freeder(char **s)
+t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	int		i;
+	t_list		*new;
+	t_list		*root;
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	while (lst && f)
 	{
-		free(s[i]);
-		i--;
+		if (!(new = f(lst)))
+			return (NULL);
+		root = new;
+		while (lst->next)
+		{
+			lst = lst->next;
+			if (!(new->next = f(lst)))
+			{
+				ft_lstdel(&root, &ft_dellst);
+				return (NULL);
+			}
+			new = new->next;
+		}
+		lst = lst->next;
 	}
-	free(s);
+	return (root);
 }

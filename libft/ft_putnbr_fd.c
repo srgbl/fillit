@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slindgre <slindgre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/23 16:59:35 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 21:16:50 by slindgre         ###   ########.fr       */
+/*   Created: 2018/08/26 19:35:39 by slindgre          #+#    #+#             */
+/*   Updated: 2018/11/27 17:11:05 by slindgre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-int			main(int argc, char **argv)
+void	ft_putnbr_fd(int nb, int fd)
 {
-	char	*s;
-
-	if (argc == 2)
+	if (nb == -2147483648)
 	{
-		if ((s = filrd(argv[1])) == NULL)
-		{
-			ft_putstr("error\n");
-			return (0);
-		}
-		solve_map(s);
-		free(s);
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putchar_fd('8', fd);
+		return ;
 	}
-	if (argc != 2)
-		ft_putstr("usage: ./fillit source_file\n");
-	return (0);
+	else if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nb = -nb;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putchar_fd(nb % 10 + '0', fd);
+	}
+	else
+		ft_putchar_fd(nb + '0', fd);
 }

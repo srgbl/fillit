@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_3m.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mwuckert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 18:35:13 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/21 17:57:53 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/03 22:16:08 by mwuckert          #+#    #+#             */
+/*   Updated: 2018/12/19 20:42:15 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void		ft_free_3m(char ***s, char **str)
+void				ft_putchar_fd(char c, int fd)
 {
-	int		e;
-
-	e = 0;
-	while (s[e])
-		e++;
-	while (e)
-	{
-		ft_freeder(s[e]);
-		e--;
-	}
-	free(s);
-	ft_freeder(str);
+	if (!fd)
+		return ;
+	write(fd, &c, 1);
 }

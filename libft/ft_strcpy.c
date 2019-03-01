@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeder.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hstiv <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 20:33:47 by hstiv             #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:57 by hstiv            ###   ########.fr       */
+/*   Created: 2018/12/06 17:20:10 by hstiv             #+#    #+#             */
+/*   Updated: 2018/12/24 20:28:31 by hstiv            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-
-void		ft_freeder(char **s)
+char				*ft_strcpy(char *dst, const char *src)
 {
-	int		i;
+	int				i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	while (src[i] != '\0')
 	{
-		free(s[i]);
-		i--;
+		dst[i] = src[i];
+		i++;
 	}
-	free(s);
+	dst[i] = '\0';
+	return (dst);
 }
