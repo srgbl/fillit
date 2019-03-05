@@ -6,7 +6,7 @@
 /*   By: slindgre <slindgre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 20:05:14 by slindgre          #+#    #+#             */
-/*   Updated: 2019/02/27 21:11:13 by slindgre         ###   ########.fr       */
+/*   Updated: 2019/03/06 01:45:59 by slindgre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,21 @@ int		paste_tetr(t_tetr *list, int i, int x)
 	return (res);
 }
 
-int		find_position(t_tetr *list, uint16_t *map, int n, int x)
+int		check_sibling(t_tetr **begin_list, t_tetr *list, int x, int y)
+{
+	t_tetr	*temp;
+
+	temp = *begin_list;
+	if (x > 0 || y > 0)
+		while (temp)
+		{
+			if (temp->tetr == list->tetr && temp->x == x && temp->y == y)
+				return (1);
+			temp = temp->next;
+		}
+	return (0);
+}
+int		find_position(t_tetr **begin_list, t_tetr *list, uint16_t *map, int n, int x)
 {
 	int	i;
 	int	y;
@@ -38,18 +52,23 @@ int		find_position(t_tetr *list, uint16_t *map, int n, int x)
 	{
 		while (x + list->width <= n)
 		{
-			i = 0;
-			while (i < 4 && !(check_position(list, i, x) & map[y + i]))
-				i++;
-			if (i == 4)
+			if (check_sibling(begin_list, list, x, y))
+				x += list->width;
+			else
 			{
-				list->x = x;
-				list->y = y;
-				while (i--)
-					map[y + 3 - i] |= paste_tetr(list, i, x);
-				return (1);
+				i = 0;
+				while (i < 4 && !(check_position(list, i, x) & map[y + i]))
+					i++;
+				if (i == 4)
+				{
+					list->x = x;
+					list->y = y;
+					while (i--)
+						map[y + 3 - i] |= paste_tetr(list, i, x);
+					return (1);
+				}
+				x++;
 			}
-			x++;
 		}
 		y++;
 		x = 0;
@@ -63,7 +82,7 @@ int		clear_position(t_tetr **begin_list,
 	t_tetr	*temp;
 	int		i;
 
-	while (*list != *begin_list)
+	if (*list != *begin_list)
 	{
 		temp = *begin_list;
 		while (temp->next != *list)
@@ -75,8 +94,7 @@ int		clear_position(t_tetr **begin_list,
 			map[temp->y + i] ^= ((temp->tetr << (i * 4)) & 61440) >> temp->x;
 		temp->x += 1;
 		(*list) = temp;
-		if (temp->tetr != (temp->next)->tetr)
-			return (n);
+		return (n);
 	}
 	ft_clean_list(begin_list);
 	ft_clean_arr(map, 16);
@@ -98,7 +116,7 @@ int		solve_map(char *str)
 	curr = list;
 	while (curr)
 	{
-		if (!find_position(curr, map, n, curr->x))
+		if (!find_position(&list, curr, map, n, curr->x))
 			n = clear_position(&list, &curr, map, n);
 		else
 			curr = curr->next;
